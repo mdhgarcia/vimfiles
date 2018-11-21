@@ -1,3 +1,6 @@
 [submodule "pack/core/start/vim-airline"]
 	path = pack/core/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "pack/core/start/fzf.vim"]
+	path = pack/core/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
