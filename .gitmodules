@@ -10,3 +10,6 @@
 [submodule "pack/core/start/vim-fugitive"]
 	path = pack/core/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/dev/start/ale"]
+	path = pack/dev/start/ale
+	url = https://github.com/w0rp/ale
