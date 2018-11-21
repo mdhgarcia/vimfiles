@@ -13,3 +13,6 @@
 [submodule "pack/dev/start/ale"]
 	path = pack/dev/start/ale
 	url = https://github.com/w0rp/ale
+[submodule "pack/dev/start/vim-gitgutter"]
+	path = pack/dev/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
