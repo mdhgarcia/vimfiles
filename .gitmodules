@@ -4,3 +4,6 @@
 [submodule "pack/core/start/fzf.vim"]
 	path = pack/core/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule "pack/core/start/vim-surround"]
+	path = pack/core/start/vim-surround
+	url = https://github.com/tpope/vim-surround
