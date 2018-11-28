@@ -16,3 +16,6 @@
 [submodule "pack/dev/start/vim-gitgutter"]
 	path = pack/dev/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule "pack/dev/start/YouCompleteMe"]
+	path = pack/dev/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
