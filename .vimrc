@@ -1,11 +1,31 @@
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible
+if &compatible
+	" Apparently this can have side effects, especially when reloading
+	" vimrc, so we only do it once.
+	set nocompatible
+endif
+
+" Use minpac for package management as it complements native packages and
+" works for both vim and nvim.
+packadd minpac
+
+if exists('*minpac#init')
+	call minpac#init()
+
+	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+	call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+	" Add other plugins here
+	call minpac#add('w0rp/ale')
+	call minpac#add('vim-airline/vim-airline')
+	call minpac#add('junegunn/fzf')
+	call minpac#add('tpope/vim-fugitive')
+	call minpac#add('tpope/vim-surround')
+	call minpac#add('airblade/vim-gitgutter')
+	call minpac#add('vim-jp/syntax-vim-ex')
+
+endif
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
