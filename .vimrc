@@ -93,3 +93,9 @@ endif
 if has('syntax') && has('eval')
   packadd! matchit
 endif
+
+" Load all plugins now
+packloadall
+
+" Load helptags now after plugins have been loaded
+silent! helptags ALL
