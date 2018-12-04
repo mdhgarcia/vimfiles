@@ -17,5 +17,8 @@
 	path = pack/dev/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 [submodule "pack/dev/start/YouCompleteMe"]
-	path = pack/dev/YouCompleteMe
+	path = pack/dev/opt/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "minpac/opt/minpac"]
+	path = pack/minpac/opt/minpac
+	url = https://github.com/k-takata/minpac.git
