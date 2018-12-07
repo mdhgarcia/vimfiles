@@ -1,14 +1,71 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
+" Because of these same effects (e.g. reloading vimrc), we ensure we only do it once
 if &compatible
-	" Apparently this can have side effects, especially when reloading
-	" vimrc, so we only do it once.
 	set nocompatible
 endif
 
+" Autocommand group to auto-reload configuration.
+" Grouped to avoid reloading while reloading.
+augroup vimrchooks
+	au!
+    autocmd bufwritepost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
+let mapleader=","   " leader is now comma
+
+colorscheme badwolf
+syntax enable
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set expandtab       " tabs are spaces
+set number          " show line numbers
+set showcmd         " show command in bottom bar
+set cursorline      " highlight current line
+
+set wildmenu        " visual autocomplete for command menu
+set lazyredraw      " redraw only when we need to (e.g. not in a macro)
+set showmatch       " highlight matching [{()}]
+set incsearch       " search as characters are entered
+set hlsearch        " highlight matches
+
+filetype indent on  "load filteype-specific indent files
+
+" turn off search highlighting using ,<space>
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Ctrl-p for FZF
+nnoremap <C-p> :Files<CR>
+
+" Folding options
+set foldenable          " allow code folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+set foldmethod=syntax   " fold based on syntax
+
+" space open/closes folds
+nnoremap <space> za
+
+" Movement commands
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" move to beginning/end fo line
+nnoremap B ^
+nnoremap E $
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" Add fzf to the runtime path
+set runtimepath+=~/.fzf
+
 " Use minpac for package management as it complements native packages and
 " works for both vim and nvim.
-packadd minpac
+if !exists('*minpac#init')
+	packadd minpac
+endif
 
 if exists('*minpac#init')
 	call minpac#init()
@@ -19,13 +76,27 @@ if exists('*minpac#init')
 	" Add other plugins here
 	call minpac#add('w0rp/ale')
 	call minpac#add('vim-airline/vim-airline')
-	call minpac#add('junegunn/fzf')
+	call minpac#add('junegunn/fzf.vim')
+    call minpac#add('mileszs/ack.vim')
 	call minpac#add('tpope/vim-fugitive')
 	call minpac#add('tpope/vim-surround')
+    call minpac#add('tpope/vim-commentary')
+    call minpac#add('tpope/vim-unimpaired')
 	call minpac#add('airblade/vim-gitgutter')
 	call minpac#add('vim-jp/syntax-vim-ex')
+	call minpac#add('sjl/badwolf')
 
 endif
+
+" Define user commands for updating/cleaning the plugins.
+command! PackUpdate call minpac#update('', {'do': 'call minpac#status()'})
+command! PackClean  call minpac#clean()
+command! PackStatus call minpac#status()
+
+" Enable completion where available.
+" " This setting must be set before ALE is loaded.
+let g:ale_completion_enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -40,7 +111,7 @@ else
 endif
 
 " Some defaults from the example vimrc
-set history=50		" keep 50 lines of command line history
+set history=10000
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
@@ -101,17 +172,6 @@ if has('langmap') && exists('+langnoremap')
   " mapping.  If unset (default), this may break plugins (but it's backward
   " compatible).
   set langnoremap
-endif
-
-
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
-" The ! means the package won't be loaded right away but when plugins are
-" loaded during initialization.
-if has('syntax') && has('eval')
-  packadd! matchit
 endif
 
 " Load all plugins now
