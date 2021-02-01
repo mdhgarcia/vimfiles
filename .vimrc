@@ -34,9 +34,6 @@ filetype indent on  "load filteype-specific indent files
 " turn off search highlighting using ,<space>
 nnoremap <leader><space> :nohlsearch<CR>
 
-" Ctrl-p for FZF
-nnoremap <C-p> :Files<CR>
-
 " Folding options
 set foldenable          " allow code folding
 set foldlevelstart=10   " open most folds by default
@@ -61,8 +58,25 @@ nnoremap gV `[v`]
 " use system clipboards by default
 set clipboard=unnamedplus
 
-" Add fzf to the runtime path
-set runtimepath+=~/.fzf
+" Add FZY functionality
+function! FzyCommand(choice_command, vim_command)
+  try
+    let output = system(a:choice_command . " | fzy ")
+  catch /Vim:Interrupt/
+    " Swallow errors from ^C, allow redraw! below
+  endtry
+  redraw!
+  if v:shell_error == 0 && !empty(output)
+    exec a:vim_command . ' ' . output
+  endif
+endfunction
+
+nnoremap <leader>e :call FzyCommand("ag . --silent -l -g ''", ":e")<cr>
+nnoremap <leader>v :call FzyCommand("ag . --silent -l -g ''", ":vs")<cr>
+nnoremap <leader>s :call FzyCommand("ag . --silent -l -g ''", ":sp")<cr>
+
+" Ctrl-p for FZY
+nnoremap <C-p> <leader>e
 
 " Use minpac for package management as it complements native packages and
 " works for both vim and nvim.
@@ -79,7 +93,6 @@ if exists('*minpac#init')
 	" Add other plugins here
 	call minpac#add('w0rp/ale')
 	call minpac#add('vim-airline/vim-airline')
-	call minpac#add('junegunn/fzf.vim')
     call minpac#add('mileszs/ack.vim')
 	call minpac#add('tpope/vim-fugitive')
 	call minpac#add('tpope/vim-surround')
