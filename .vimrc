@@ -2,13 +2,13 @@
 " This must be first, because it changes other options as a side effect.
 " Because of these same effects (e.g. reloading vimrc), we ensure we only do it once
 if &compatible
-	set nocompatible
+    set nocompatible
 endif
 
 " Autocommand group to auto-reload configuration.
 " Grouped to avoid reloading while reloading.
 augroup vimrchooks
-	au!
+    au!
     autocmd bufwritepost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
@@ -81,26 +81,26 @@ nnoremap <C-p> <leader>e
 " Use minpac for package management as it complements native packages and
 " works for both vim and nvim.
 if !exists('*minpac#init')
-	packadd minpac
+    packadd minpac
 endif
 
 if exists('*minpac#init')
-	call minpac#init()
+    call minpac#init()
 
-	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
-	call minpac#add('k-takata/minpac', {'type': 'opt'})
+    " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-	" Add other plugins here
-	call minpac#add('w0rp/ale')
-	call minpac#add('vim-airline/vim-airline')
+    " Add other plugins here
+    call minpac#add('w0rp/ale')
+    call minpac#add('vim-airline/vim-airline')
     call minpac#add('mileszs/ack.vim')
-	call minpac#add('tpope/vim-fugitive')
-	call minpac#add('tpope/vim-surround')
+    call minpac#add('tpope/vim-fugitive')
+    call minpac#add('tpope/vim-surround')
     call minpac#add('tpope/vim-commentary')
     call minpac#add('tpope/vim-unimpaired')
-	call minpac#add('airblade/vim-gitgutter')
-	call minpac#add('vim-jp/syntax-vim-ex')
-	call minpac#add('sjl/badwolf')
+    call minpac#add('airblade/vim-gitgutter')
+    call minpac#add('vim-jp/syntax-vim-ex')
+    call minpac#add('sjl/badwolf')
 
 endif
 
@@ -118,19 +118,19 @@ let g:airline#extensions#ale#enabled = 1
 set backspace=indent,eol,start
 
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup      " do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file (restore to previous version)
+  set backup        " keep a backup file (restore to previous version)
   if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
+    set undofile    " keep an undo file (undo changes after closing)
   endif
 endif
 
 " Some defaults from the example vimrc
 set history=10000
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set ruler       " show the cursor position all the time
+set showcmd     " display incomplete commands
+set incsearch       " do incremental searching
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -171,7 +171,7 @@ if has("autocmd")
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
 
@@ -180,7 +180,7 @@ endif " has("autocmd")
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+          \ | wincmd p | diffthis
 endif
 
 if has('langmap') && exists('+langnoremap')
