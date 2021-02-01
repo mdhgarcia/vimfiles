@@ -1,1 +1,8 @@
+# netrw history
 .netrwhist
+
+# minpack package folder
+pack/minpac/start
+
+# vim backup files
+*~
