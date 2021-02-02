@@ -86,6 +86,7 @@ function! PackInit() abort
 
     " Add other plugins here
     call minpac#add('tpope/vim-sensible')
+    call minpac#add('preservim/nerdtree')
     call minpac#add('dense-analysis/ale')
     call minpac#add('vim-airline/vim-airline')
     call minpac#add('mileszs/ack.vim')
