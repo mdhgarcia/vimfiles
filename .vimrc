@@ -80,18 +80,16 @@ nnoremap <C-p> <leader>e
 
 " Use minpac for package management as it complements native packages and
 " works for both vim and nvim.
-if !exists('*minpac#init')
+function! PackInit() abort
     packadd minpac
-endif
 
-if exists('*minpac#init')
-    call minpac#init()
+    call minpac#init({'status_auto': 'TRUE'})
 
     " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
     call minpac#add('k-takata/minpac', {'type': 'opt'})
 
     " Add other plugins here
-    call minpac#add('w0rp/ale')
+    call minpac#add('dense-analysis/ale')
     call minpac#add('vim-airline/vim-airline')
     call minpac#add('mileszs/ack.vim')
     call minpac#add('tpope/vim-fugitive')
@@ -101,13 +99,12 @@ if exists('*minpac#init')
     call minpac#add('airblade/vim-gitgutter')
     call minpac#add('vim-jp/syntax-vim-ex')
     call minpac#add('sjl/badwolf')
-
-endif
+endfunction
 
 " Define user commands for updating/cleaning the plugins.
-command! PackUpdate call minpac#update('', {'do': 'call minpac#status()'})
-command! PackClean  call minpac#clean()
-command! PackStatus call minpac#status()
+command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
+command! PackClean  source $MYVIMRC | call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
 
 " Enable completion where available.
 " " This setting must be set before ALE is loaded.
